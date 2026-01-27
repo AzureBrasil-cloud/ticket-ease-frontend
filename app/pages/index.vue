@@ -178,7 +178,7 @@ const items = [[{
         </template>
 
         <template #right>
-          <CustomersAddModal />
+          <TicketsAddModal />
         </template>
       </UDashboardNavbar>
     </template>
@@ -193,7 +193,7 @@ const items = [[{
         />
 
         <div class="flex flex-wrap items-center gap-1.5">
-          <CustomersDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
+          <TicketsDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
             <UButton
               v-if="table?.tableApi?.getFilteredSelectedRowModel().rows.length"
               label="Delete"
@@ -207,7 +207,7 @@ const items = [[{
                 </UKbd>
               </template>
             </UButton>
-          </CustomersDeleteModal>
+          </TicketsDeleteModal>
 
           <USelect
             v-model="statusFilter"
