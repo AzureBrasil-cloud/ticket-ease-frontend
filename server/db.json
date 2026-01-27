@@ -1,0 +1,32 @@
+{
+  "tickets": [
+    {
+      "id": 1,
+      "title": "Sample Ticket",
+      "description": "This is a sample ticket description.",
+      "content": "Detailed content of the sample ticket.",
+      "status": 1,
+      "priority": 2,
+      "created_at": "2024-06-01T12:00:00Z",
+      "updated_at": "2024-06-01T12:00:00Z",
+      "closed_at": null,
+      "assignee": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "",
+        "password": "password123",
+        "role": "admin"
+      },
+      "assigneeId": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "",
+      "password": "password123",
+      "role": "admin"
+    }
+  ]
+}

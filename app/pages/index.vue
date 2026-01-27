@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //import { sub } from 'date-fns'
-import type { DropdownMenuItem } from '@nuxt/ui'
+import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 //import type { Period, Range } from '~/types'
 import { upperFirst } from 'scule'
 
@@ -8,6 +8,9 @@ import { upperFirst } from 'scule'
 
 import { getPaginationRowModel } from '@tanstack/table-core'
 import type { Row } from '@tanstack/table-core'
+import type { Ticket, User } from '~/types'
+import { getStatusName } from '~/shared/getStatusName'
+import { getPriorityName } from '~/shared/getPriorityName'
 
 const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
@@ -25,8 +28,9 @@ const columnFilters = ref([{
 const columnVisibility = ref()
 const rowSelection = ref({ 1: true })
 
-const { data, status } = await useFetch<User[]>('/api/customers', {
-  lazy: true
+const { data, status } = await useFetch<Ticket[]>('/tickets', {
+  lazy: false,
+  baseURL: 'http://localhost:3001'
 })
 
 function getRowItems(row: Row<User>) {
@@ -74,109 +78,43 @@ function getRowItems(row: Row<User>) {
   ]
 }
 
-const columns: TableColumn<User>[] = [
-  {
-    id: 'select',
-    header: ({ table }) =>
-      h(UCheckbox, {
-        'modelValue': table.getIsSomePageRowsSelected()
-          ? 'indeterminate'
-          : table.getIsAllPageRowsSelected(),
-        'onUpdate:modelValue': (value: boolean | 'indeterminate') =>
-          table.toggleAllPageRowsSelected(!!value),
-        'ariaLabel': 'Select all'
-      }),
-    cell: ({ row }) =>
-      h(UCheckbox, {
-        'modelValue': row.getIsSelected(),
-        'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
-        'ariaLabel': 'Select row'
-      })
-  },
+const columns: TableColumn<Ticket>[] = [
   {
     accessorKey: 'id',
-    header: 'ID'
+    header: '#'
   },
   {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => {
-      return h('div', { class: 'flex items-center gap-3' }, [
-        h(UAvatar, {
-          ...row.original.avatar,
-          size: 'lg'
-        }),
-        h('div', undefined, [
-          h('p', { class: 'font-medium text-highlighted' }, row.original.name),
-          h('p', { class: '' }, `@${row.original.name}`)
-        ])
-      ])
-    }
+    accessorKey: 'title',
+    header: 'Título'
   },
   {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      const isSorted = column.getIsSorted()
-
-      return h(UButton, {
-        color: 'neutral',
-        variant: 'ghost',
-        label: 'Email',
-        icon: isSorted
-          ? isSorted === 'asc'
-            ? 'i-lucide-arrow-up-narrow-wide'
-            : 'i-lucide-arrow-down-wide-narrow'
-          : 'i-lucide-arrow-up-down',
-        class: '-mx-2.5',
-        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
-      })
-    }
-  },
-  {
-    accessorKey: 'location',
-    header: 'Location',
-    cell: ({ row }) => row.original.location
+    accessorKey: 'description',
+    header: 'Descrição'
   },
   {
     accessorKey: 'status',
     header: 'Status',
-    filterFn: 'equals',
-    cell: ({ row }) => {
-      const color = {
-        subscribed: 'success' as const,
-        unsubscribed: 'error' as const,
-        bounced: 'warning' as const
-      }[row.original.status]
-
-      return h(UBadge, { class: 'capitalize', variant: 'subtle', color }, () =>
-        row.original.status
-      )
-    }
+    cell: ({ row }) => getStatusName(row.original.status)
   },
   {
-    id: 'actions',
-    cell: ({ row }) => {
-      return h(
-        'div',
-        { class: 'text-right' },
-        h(
-          UDropdownMenu,
-          {
-            content: {
-              align: 'end'
-            },
-            items: getRowItems(row)
-          },
-          () =>
-            h(UButton, {
-              icon: 'i-lucide-ellipsis-vertical',
-              color: 'neutral',
-              variant: 'ghost',
-              class: 'ml-auto'
-            })
-        )
-      )
-    }
+    accessorKey: 'priority',
+    header: 'Prioridade',
+    cell: ({ row }) => getPriorityName(row.original.priority)
+  },
+  {
+    accessorKey: 'createdAt',
+    header: 'Criado em',
+    cell: ({ row }) => new Date(row.original.createdAt).toLocaleDateString()
+  },
+  {
+    accessorKey: 'updatedAt',
+    header: 'Atualizado em',
+    cell: ({ row }) => new Date(row.original.updatedAt).toLocaleDateString()
+  },
+  {
+    accessorKey: 'assignee.name',
+    header: 'Responsável',
+    cell: ({ row }) => row.original.assignee.name
   }
 ]
 
