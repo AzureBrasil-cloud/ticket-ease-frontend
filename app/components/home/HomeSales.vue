@@ -10,14 +10,6 @@ const props = defineProps<{
 
 const UBadge = resolveComponent('UBadge')
 
-const sampleEmails = [
-  'james.anderson@example.com',
-  'mia.white@example.com',
-  'william.brown@example.com',
-  'emma.davis@example.com',
-  'ethan.harris@example.com'
-]
-
 const { data } = await useAsyncData('sales', async () => {
   const sales: Sale[] = []
   const currentDate = new Date()
@@ -30,7 +22,6 @@ const { data } = await useAsyncData('sales', async () => {
       id: (4600 - i).toString(),
       date: date.toISOString(),
       status: randomFrom(['paid', 'failed', 'refunded']),
-      email: randomFrom(sampleEmails),
       amount: randomInt(100, 1000)
     })
   }
@@ -74,10 +65,6 @@ const columns: TableColumn<Sale>[] = [
         row.getValue('status')
       )
     }
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email'
   },
   {
     accessorKey: 'amount',

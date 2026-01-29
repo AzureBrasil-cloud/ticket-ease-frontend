@@ -21,10 +21,7 @@ const UCheckbox = resolveComponent('UCheckbox')
 const toast = useToast()
 const table = useTemplateRef('table')
 
-const columnFilters = ref([{
-  id: 'email',
-  value: ''
-}])
+const columnFilters = ref([])
 const columnVisibility = ref()
 const rowSelection = ref({ 1: true })
 
@@ -133,14 +130,7 @@ watch(() => statusFilter.value, (newVal) => {
   }
 })
 
-const email = computed({
-  get: (): string => {
-    return (table.value?.tableApi?.getColumn('email')?.getFilterValue() as string) || ''
-  },
-  set: (value: string) => {
-    table.value?.tableApi?.getColumn('email')?.setFilterValue(value || undefined)
-  }
-})
+
 
 const pagination = ref({
   pageIndex: 0,
@@ -185,7 +175,7 @@ const items = [[{
 
     <template #body>
       <div class="flex flex-wrap items-center justify-between gap-1.5">
-        <UInput v-model="email" class="max-w-sm" icon="i-lucide-search" placeholder="Filter emails..." />
+        
 
         <div class="flex flex-wrap items-center gap-1.5">
           <TicketsDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">

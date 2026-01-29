@@ -14,10 +14,7 @@ const UCheckbox = resolveComponent('UCheckbox')
 const toast = useToast()
 const table = useTemplateRef('table')
 
-const columnFilters = ref([{
-  id: 'email',
-  value: ''
-}])
+const columnFilters = ref([])
 const columnVisibility = ref()
 const rowSelection = ref({ 1: true })
 
@@ -109,25 +106,7 @@ const columns: TableColumn<User>[] = [
       ])
     }
   },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      const isSorted = column.getIsSorted()
-
-      return h(UButton, {
-        color: 'neutral',
-        variant: 'ghost',
-        label: 'Email',
-        icon: isSorted
-          ? isSorted === 'asc'
-            ? 'i-lucide-arrow-up-narrow-wide'
-            : 'i-lucide-arrow-down-wide-narrow'
-          : 'i-lucide-arrow-up-down',
-        class: '-mx-2.5',
-        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
-      })
-    }
-  },
+  
   {
     accessorKey: 'location',
     header: 'Location',
@@ -191,14 +170,7 @@ watch(() => statusFilter.value, (newVal) => {
   }
 })
 
-const email = computed({
-  get: (): string => {
-    return (table.value?.tableApi?.getColumn('email')?.getFilterValue() as string) || ''
-  },
-  set: (value: string) => {
-    table.value?.tableApi?.getColumn('email')?.setFilterValue(value || undefined)
-  }
-})
+
 
 const pagination = ref({
   pageIndex: 0,
@@ -222,12 +194,7 @@ const pagination = ref({
 
     <template #body>
       <div class="flex flex-wrap items-center justify-between gap-1.5">
-        <UInput
-          v-model="email"
-          class="max-w-sm"
-          icon="i-lucide-search"
-          placeholder="Filter emails..."
-        />
+        
 
         <div class="flex flex-wrap items-center gap-1.5">
           <CustomersDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
