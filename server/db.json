@@ -2,8 +2,8 @@
   "tickets": [
     {
       "id": 1,
-      "title": "Sample Ticket",
-      "description": "This is a sample ticket description.",
+      "title": "Falhar ao fazer login",
+      "description": "Não estou conseguindo acessar o sistema pois esta retornando erro de login.",
       "content": "Detailed content of the sample ticket.",
       "status": 1,
       "priority": 2,
