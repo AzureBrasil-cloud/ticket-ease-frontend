@@ -31,6 +31,8 @@ const { data, status } = await useFetch<Ticket[]>('/tickets', {
   baseURL: 'http://localhost:3001'
 })
 
+console.log(data)
+
 function getRowItems(row: Row<User>) {
   return [
     {
@@ -102,17 +104,17 @@ const columns: TableColumn<Ticket>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Criado em',
-    cell: ({ row }) => new Date(row.original.createdAt).toLocaleDateString()
+    cell: ({ row }) => new Date(row.original.created_at).toLocaleDateString()
   },
   {
     accessorKey: 'updatedAt',
     header: 'Atualizado em',
-    cell: ({ row }) => new Date(row.original.updatedAt).toLocaleDateString()
+    cell: ({ row }) => new Date(row.original.updated_at).toLocaleDateString()
   },
   {
     accessorKey: 'assignee.name',
     header: 'Responsável',
-    cell: ({ row }) => row.original.assignee.name
+    cell: ({ row }) => row.original.assignee?.name ?? 'Não assinado'
   }
 ]
 

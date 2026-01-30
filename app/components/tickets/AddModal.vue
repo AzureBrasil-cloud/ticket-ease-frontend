@@ -1,28 +1,45 @@
 <script setup lang="ts">
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
+import { priorityOptions } from '~/shared/getPriorityName'
+import { TicketPriority } from '~/types'
 
 const schema = z.object({
   title: z.string().min(2, 'Too short'),
   description: z.string().min(2, 'Too short'),
   content: z.string().min(2, 'Too short'),
-  priority: z.string().min(2, 'Too short')
+  priority: z.nativeEnum(TicketPriority)
 })
+
 const open = ref(false)
 
 type Schema = z.output<typeof schema>
 
-const state = reactive<Partial<Schema>>({
+const initialState: Partial<Schema> = {
   title: undefined,
   description: undefined,
   content: undefined,
   priority: undefined
-})
+}
+
+const state = reactive({ ...initialState })
 
 const toast = useToast()
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  toast.add({ title: 'Success', description: `New customer ${event.data.title} added`, color: 'success' })
-  open.value = false
+  try {
+    await $fetch('/api/tickets', {
+      method: 'POST',
+      body: event.data
+    })
+
+    toast.add({ title: 'Success', description: `Ticket "${event.data.title}" created.`, color: 'green' })
+    open.value = false
+    // Reset form state
+    Object.assign(state, initialState)
+  } catch (error) {
+    toast.add({ title: 'Error', description: 'Could not create ticket.', color: 'red' })
+  }
 }
 </script>
 
@@ -42,7 +59,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UInput v-model="state.content" class="w-full" />
         </UFormField>
         <UFormField label="Prioridade" name="priority">
-          <UInput v-model="state.priority" class="w-full" />
+          <USelect v-model.number="state.priority" :items="priorityOptions" class="w-full" placeholder="Selecione a prioridade" popper="{ strategy: 'fixed' }" />
         </UFormField>
         <div class="flex justify-end gap-2">
           <UButton label="Cancel" color="neutral" variant="subtle" @click="open = false" />

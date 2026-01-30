@@ -33,8 +33,8 @@ export interface Ticket {
   content: string // X
   status: TicketStatus //
   priority: TicketPriority //
-  createdAt: Date //
-  updatedAt: Date //
+  created_at: Date //
+  updated_at: Date //
   assignee: User //
   assigneeId: string // X
 }
