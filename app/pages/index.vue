@@ -180,7 +180,7 @@ const pagination = ref({
               }
             }))
             " :content="{ align: 'end' }">
-            <UButton label="Display" color="neutral" variant="outline" trailing-icon="i-lucide-settings-2" />
+            <UButton label="Filtro" color="neutral" variant="outline" trailing-icon="i-lucide-settings-2" />
           </UDropdownMenu>
         </div>
       </div>

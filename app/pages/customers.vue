@@ -106,7 +106,7 @@ const columns: TableColumn<User>[] = [
       ])
     }
   },
-  
+
   {
     accessorKey: 'location',
     header: 'Location',
@@ -194,7 +194,7 @@ const pagination = ref({
 
     <template #body>
       <div class="flex flex-wrap items-center justify-between gap-1.5">
-        
+
 
         <div class="flex flex-wrap items-center gap-1.5">
           <CustomersDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
