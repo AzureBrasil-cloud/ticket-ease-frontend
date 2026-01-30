@@ -19,7 +19,7 @@ const table = useTemplateRef('table')
 const q = ref('')
 const columnFilters = ref([])
 const columnVisibility = ref()
-const rowSelection = ref({ 1: true })
+const rowSelection = ref({})
 
 const { data, status } = await useFetch<Ticket[]>('/tickets', {
   lazy: false,
@@ -165,13 +165,6 @@ const pagination = ref({
             </UButton>
           </TicketsDeleteModal>
 
-          <!-- <USelect v-model="statusFilter" :items="[
-            { label: 'All', value: 'all' },
-            { label: 'Subscribed', value: 'subscribed' },
-            { label: 'Unsubscribed', value: 'unsubscribed' },
-            { label: 'Bounced', value: 'bounced' }
-          ]" :ui="{ trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200' }"
-            placeholder="Filter status" class="min-w-28" /> -->
           <UDropdownMenu :items="table?.tableApi
             ?.getAllColumns()
             .filter((column: any) => column.getCanHide())
@@ -199,6 +192,7 @@ const pagination = ref({
           base: 'table-fixed border-separate border-spacing-0',
           thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',
           tbody: '[&>tr]:last:[&>td]:border-b-0',
+          tr: 'hover:bg-elevated/50 cursor-pointer',
           th: 'py-2 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
           td: 'border-b border-default',
           separator: 'h-0'
