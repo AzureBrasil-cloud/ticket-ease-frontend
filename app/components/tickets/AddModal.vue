@@ -56,7 +56,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UInput v-model="state.description" class="w-full" />
         </UFormField>
         <UFormField label="Conteúdo" name="content">
-          <UInput v-model="state.content" class="w-full" />
+          <UTextarea v-model="state.content" class="w-full" rows="5" />
         </UFormField>
         <UFormField label="Prioridade" name="priority">
           <USelect v-model.number="state.priority" :items="priorityOptions" class="w-full" placeholder="Selecione a prioridade" popper="{ strategy: 'fixed' }" />

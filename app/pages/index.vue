@@ -109,7 +109,7 @@ const columns: TableColumn<Ticket>[] = [
   {
     accessorKey: 'assignee.name',
     header: 'Responsável',
-    cell: ({ row }) => row.original.assignee?.name ?? 'Não assinado'
+    cell: ({ row }) => row.original.assignee?.name ?? 'Aguardando'
   }
 ]
 
