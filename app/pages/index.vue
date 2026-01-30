@@ -133,6 +133,21 @@ const pagination = ref({
   pageSize: 10
 })
 
+const columnTranslations: Record<string, string> = {
+  id: 'Id',
+  title: 'Título',
+  description: 'Descrição',
+  status: 'Status',
+  priority: 'Prioridade',
+  createdAt: 'Criado em',
+  updatedAt: 'Atualizado em',
+  assignee_name: 'Responsável'
+}
+
+function getTranslatedColumnName(columnId: string): string {
+  return columnTranslations[columnId] || upperFirst(columnId)
+}
+
 </script>
 
 <template>
@@ -169,7 +184,7 @@ const pagination = ref({
             ?.getAllColumns()
             .filter((column: any) => column.getCanHide())
             .map((column: any) => ({
-              label: upperFirst(column.id),
+              label: getTranslatedColumnName(column.id),
               type: 'checkbox' as const,
               checked: column.getIsVisible(),
               onUpdateChecked(checked: boolean) {
@@ -180,7 +195,7 @@ const pagination = ref({
               }
             }))
             " :content="{ align: 'end' }">
-            <UButton label="Filtro" color="neutral" variant="outline" trailing-icon="i-lucide-settings-2" />
+            <UButton label="Exibir" color="neutral" variant="outline" trailing-icon="i-lucide-settings-2" />
           </UDropdownMenu>
         </div>
       </div>
