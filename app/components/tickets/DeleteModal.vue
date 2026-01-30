@@ -14,7 +14,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <UModal
+  <!-- <UModal
     v-model:open="open"
     :title="`Delete ${count} customer${count > 1 ? 's' : ''}`"
     :description="`Are you sure, this action cannot be undone.`"
@@ -38,5 +38,5 @@ async function onSubmit() {
         />
       </div>
     </template>
-  </UModal>
+  </UModal> -->
 </template>

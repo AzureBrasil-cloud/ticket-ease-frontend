@@ -33,12 +33,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       body: event.data
     })
 
-    toast.add({ title: 'Success', description: `Ticket "${event.data.title}" created.`, color: 'green' })
+    toast.add({ title: 'Success', description: `Ticket "${event.data.title}" created.`, color: 'success' })
     open.value = false
     // Reset form state
     Object.assign(state, initialState)
   } catch (error) {
-    toast.add({ title: 'Error', description: 'Could not create ticket.', color: 'red' })
+    toast.add({ title: 'Error', description: 'Could not create ticket.', color: 'error' })
   }
 }
 </script>
@@ -62,8 +62,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <USelect v-model.number="state.priority" :items="priorityOptions" class="w-full" placeholder="Selecione a prioridade" popper="{ strategy: 'fixed' }" />
         </UFormField>
         <div class="flex justify-end gap-2">
-          <UButton label="Cancel" color="neutral" variant="subtle" @click="open = false" />
-          <UButton label="Create" color="primary" variant="solid" type="submit" />
+          <UButton label="Cancelar" color="neutral" variant="subtle" @click="open = false" />
+          <UButton label="Criar" color="primary" variant="solid" type="submit" />
         </div>
       </UForm>
     </template>

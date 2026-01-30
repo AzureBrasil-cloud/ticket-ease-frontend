@@ -1,7 +1,5 @@
 <script setup lang="ts">
-//import { sub } from 'date-fns'
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
-//import type { Period, Range } from '~/types'
 import { upperFirst } from 'scule'
 
 // Customers
@@ -12,11 +10,8 @@ import type { Ticket, User } from '~/types'
 import { getStatusName } from '~/shared/getStatusName'
 import { getPriorityName } from '~/shared/getPriorityName'
 
-const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
-const UBadge = resolveComponent('UBadge')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
-const UCheckbox = resolveComponent('UCheckbox')
 
 const toast = useToast()
 const table = useTemplateRef('table')
@@ -133,33 +128,11 @@ watch(() => statusFilter.value, (newVal) => {
   }
 })
 
-
-
 const pagination = ref({
   pageIndex: 0,
   pageSize: 10
 })
 
-// end Customers
-
-const { isNotificationsSlideoverOpen } = useDashboard()
-
-const items = [[{
-  label: 'New mail',
-  icon: 'i-lucide-send',
-  to: '/inbox'
-}, {
-  label: 'New customer',
-  icon: 'i-lucide-user-plus',
-  to: '/customers'
-}]] satisfies DropdownMenuItem[][]
-
-// const range = shallowRef<Range>({
-//   start: sub(new Date(), { days: 14 }),
-//   end: new Date()
-// })
-
-// const period = ref<Period>('daily')
 </script>
 
 <template>
@@ -178,7 +151,7 @@ const items = [[{
 
     <template #body>
       <div class="flex flex-wrap items-center justify-between gap-1.5">
-        <UInput v-model="q" placeholder="Search tickets..." icon="i-lucide-search" class="min-w-40" />
+        <!-- <UInput v-model="q" placeholder="Search tickets..." icon="i-lucide-search" class="min-w-40" /> -->
 
         <div class="flex flex-wrap items-center gap-1.5">
           <TicketsDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
@@ -192,13 +165,13 @@ const items = [[{
             </UButton>
           </TicketsDeleteModal>
 
-          <USelect v-model="statusFilter" :items="[
+          <!-- <USelect v-model="statusFilter" :items="[
             { label: 'All', value: 'all' },
             { label: 'Subscribed', value: 'subscribed' },
             { label: 'Unsubscribed', value: 'unsubscribed' },
             { label: 'Bounced', value: 'bounced' }
           ]" :ui="{ trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200' }"
-            placeholder="Filter status" class="min-w-28" />
+            placeholder="Filter status" class="min-w-28" /> -->
           <UDropdownMenu :items="table?.tableApi
             ?.getAllColumns()
             .filter((column: any) => column.getCanHide())

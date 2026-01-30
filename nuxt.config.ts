@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/eslint',
+    // '@nuxt/eslint',
     '@nuxt/ui',
     '@vueuse/nuxt',
     '@vee-validate/nuxt'
@@ -19,14 +19,14 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2024-07-11',
+  compatibilityDate: '2024-07-11'
 
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
-  }
+  // eslint: {
+  //   config: {
+  //     stylistic: {
+  //       commaDangle: 'never',
+  //       braceStyle: '1tbs'
+  //     }
+  //   }
+  // }
 })
