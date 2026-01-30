@@ -4,7 +4,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 const schema = z.object({
   title: z.string().min(2, 'Too short'),
-  descripton: z.string().min(2, 'Too short'),
+  description: z.string().min(2, 'Too short'),
   content: z.string().min(2, 'Too short'),
   priority: z.string().min(2, 'Too short')
 })
@@ -14,7 +14,7 @@ type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({
   title: undefined,
-  descripton: undefined,
+  description: undefined,
   content: undefined,
   priority: undefined
 })
@@ -36,7 +36,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <UInput v-model="state.title" class="w-full" />
         </UFormField>
         <UFormField label="Descrição" name="description">
-          <UInput v-model="state.descripton" class="w-full" />
+          <UInput v-model="state.description" class="w-full" />
         </UFormField>
         <UFormField label="Conteúdo" name="content">
           <UInput v-model="state.content" class="w-full" />

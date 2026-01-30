@@ -21,6 +21,7 @@ const UCheckbox = resolveComponent('UCheckbox')
 const toast = useToast()
 const table = useTemplateRef('table')
 
+const q = ref('')
 const columnFilters = ref([])
 const columnVisibility = ref()
 const rowSelection = ref({ 1: true })
@@ -175,7 +176,7 @@ const items = [[{
 
     <template #body>
       <div class="flex flex-wrap items-center justify-between gap-1.5">
-        
+        <UInput v-model="q" placeholder="Search tickets..." icon="i-lucide-search" class="min-w-40" />
 
         <div class="flex flex-wrap items-center gap-1.5">
           <TicketsDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
@@ -216,7 +217,7 @@ const items = [[{
         </div>
       </div>
 
-      <UTable ref="table" v-model:column-filters="columnFilters" v-model:column-visibility="columnVisibility"
+      <UTable ref="table" :q="q" v-model:column-filters="columnFilters" v-model:column-visibility="columnVisibility"
         v-model:row-selection="rowSelection" v-model:pagination="pagination" :pagination-options="{
           getPaginationRowModel: getPaginationRowModel()
         }" class="shrink-0" :data="data" :columns="columns" :loading="status === 'pending'" :ui="{
